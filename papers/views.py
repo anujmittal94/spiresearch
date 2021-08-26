@@ -62,7 +62,7 @@ def readlist(request):
 def read(request):
     if request.method != "PUT":
         return JsonResponse({"error": "PUT request required"}, status = 400)
-    user_read = UserRead.objects.get(user = request.user)
+    user_read = UserRead.objects.filter(user = request.user).first()
     json_data = json.loads(request.body)
     read_url = json_data.get("read_url", "")
     if user_read:
