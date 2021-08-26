@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block body %}
+{% load static %}
+<div class="p-0" id='messages'>
+    {% if messages %}
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    {% endif %}
+</div>
+
+<div class='container-fluid'>
+    <h1 class='center'>Inspire Searcher</h1>
+    <form id="paperForm" action="{% url 'paper' %}" method="post">
+        {% csrf_token %}
+        <div class='input-group input-group-lg'>
+            <span class="input-group-text bg-light" id="url_label">URL</span>
+            {{ form.paper_url }}
+            <input type="submit" value="Submit" class="btn btn-primary">
+        </div>
+    </form>
+</div>
+
+<div class="card container-fluid">
+    <h3>Welcome to Inspire Searcher</h3>
+    <div>
+        This is a tool to help locate relevant research papers on INSPIRE-HEP using
+        the references of a paper. Search for a paper through its link on INSPIRE, then
+        you can sort and search its references to find potentially useful papers. Create
+        an account for additional options.
+    </div>
+    <div>
+        <h4>Current Options</h4>
+        <ul>
+            <li>Sort and search references for a paper.</li>
+            <li>Bookmark papers in a readlist.</li>
+            <li>Bookmark papers for specific projects.</li>
+        </ul>
+
+        <h4>Future Plans</h4>
+        <ul>
+            <li>Automatic citation generation.</li>
+            <li>Extension to other databases.</li>
+        </ul>
+    </div>
+</div>
+
+{% endblock %}

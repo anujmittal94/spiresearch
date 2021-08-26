@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+
+{% block body %}
+{% load static %}
+{% load add_class %}
+<div class="p-0" id='messages'>
+    {% if messages %}
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    {% endif %}
+</div>
+<script src="{% static 'papers/common.js' %}"></script>
+<script src="{% static 'papers/inspire.js' %}"></script>
+<script src="{% static 'papers/projects.js' %}"></script>
+
+{% if messages %}
+<ul id="errors" style="list-style: circle;">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<div class="card container-fluid">
+    <h3>Projects</h3>
+    <div>
+        <button type="button" id="createProject" class="btn btn-primary">Create Project</button>
+
+        <form action="{% url 'projects' %}" method="post" style="display:none;" id="createProjectForm">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="id_name" class="form-label">{{form.name.label}}</label>
+                {{form.name | add_class:"form-control" }}
+                <label for="id_description" class="form-label">{{form.description.label}}</label>
+                {{form.description | add_class:"form-control" }}
+                <div>
+                    <button type="submit" class="btn btn-primary mb-3">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+    <ul class="list-group list-group-flush">
+        {% for project in projects %}
+        <li class="list-group-item">
+            <a href='{% url "project" project.id %}'>{{project.name}}</a>
+            <form  action="{% url 'delete' %}" method="post">
+                {% csrf_token %}
+                <input type="text" name="del" value="{{project.id}}" hidden>
+                <input type="submit" value="Delete" class="btn btn-primary">
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+
+</div>
+
+{% endblock %}

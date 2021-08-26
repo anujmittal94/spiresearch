@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+
+{% block body %}
+{% load static %}
+{% load add_class %}
+{% if form.errors %}
+    {% if form.errors.username %}
+        {{form.errors.username}}
+    {% endif %}
+    {% if form.errors.email %}
+        {{form.errors.email}}
+    {% endif %}
+    {% if form.errors.password1 %}
+        {{form.errors.password1}}
+    {% endif %}
+    {% if form.errors.password2 %}
+        {{form.errors.password2}}
+    {% endif %}
+{% endif %}
+
+<div class="container-sm">
+    <h1>Register</h1>
+    <form method="post">
+      {% csrf_token %}
+      <div class='input-group'>
+          <span class="input-group-text bg-light">Username</span>
+          {{ form.username|add_class:"form-control"}}
+      </div>
+      <div class='input-group'>
+          <span class="input-group-text bg-light">Email</span>
+          {{ form.email|add_class:"form-control"}}
+      </div>
+      <div class='input-group'>
+          <span class="input-group-text bg-light">Password</span>
+          {{ form.password1|add_class:"form-control"}}
+          <small class="w-100 text-muted">
+              <ul>
+                  <li>Your password can’t be too similar to your other personal information.</li>
+                  <li>Your password must contain at least 8 characters.</li>
+                  <li>Your password can’t be a commonly used password.</li>
+                  <li>Your password can’t be entirely numeric.</li>
+              </ul>
+          </small>
+      </div>
+      <div class='input-group'>
+          <span class="input-group-text bg-light">Confirm Password</span>
+          {{ form.password2|add_class:"form-control"}}
+      </div>
+      <input type="submit" value="Register" class="btn btn-primary" />
+      <input type="hidden" name="next" value="{{ next }}" />
+    </form>
+</div>
+
+
+
+{% endblock %}

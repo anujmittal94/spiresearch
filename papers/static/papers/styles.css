@@ -1,0 +1,39 @@
+:root {
+    --primary: #0d6efd; /* accessible everywhere */
+}
+
+.removed {
+   display: none    !important;
+}
+
+.center {
+    text-align: center;
+}
+
+th {
+    white-space: nowrap;
+}
+
+div {
+    padding: 0.5rem 0;
+}
+
+.card {
+    width: auto;
+    margin-left: 1%;
+    margin-right: 1%;
+}
+
+a {
+    text-decoration: none;
+    color: var(--primary);
+}
+
+*:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.flex-row {
+  flex-wrap: nowrap;
+}

@@ -1,0 +1,88 @@
+{% extends "layout.html" %}
+
+{% block body %}
+{% load static %}
+<div class="p-0" id='messages'>
+    {% if messages %}
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    {% endif %}
+</div>
+<script src="{% static 'papers/common.js' %}"></script>
+<script src="{% static 'papers/inspire.js' %}"></script>
+<script src="{% static 'papers/paper.js' %}"></script>
+
+<form action="{% url 'paper' %}" method="post" id="refForm" target="_blank" hidden novalidate>
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit" id="refSubmit">
+</form>
+
+{% if paper_url %}
+<div id="paperUrl" hidden>{{paper_url}}</div>
+{% endif %}
+
+{% if user.is_authenticated %}
+<div id="readlist" hidden>{{readlist}}</div>
+{% endif %}
+
+<div class="card container-fluid" id="paperData">
+    <h2 id="title"></h2>
+    <div id="authors"></div>
+    <div id="abstract"></div>
+    <div id="citations"></div>
+    <div id="pub"></div>
+    <div id="links"></div>
+
+    {% if user.is_authenticated %}
+        <div class='row'>
+            <div class="col-auto">
+                <button type="button" id="read" class="btn btn-primary">Add to Readlist</button>
+            </div>
+            <div class="col-auto">
+                <div class="input-group p-0" id="projects">
+                    <select class="form-select" id="projectSelect">
+                      <option value="0" selected>Choose...</option>
+                      {% for project in projects %}
+                        <option value="{{project.id}}">{{project.name}}</option>
+                      {% endfor %}
+                    </select>
+                    <button class="btn btn-primary" type="button" id="projectSelectBtn">Add</button>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+<br>
+<div class="card container-fluid">
+    <h3>References</h3>
+
+    <h4>INSPIRE Records</h4>
+        <div class="input-group">
+            <span class="input-group-text bg-light">Search</span>
+            <input class='form-control' type="text" name="inspireSearch" id='inspireSearch'>
+            <small class="w-100 text-muted">Note. Only displayed authors are searched currently.</small>
+            <div class="form-check">
+                <label class='form-check-label' for="hasArxiv">arXiv available</label>
+                <input class='form-check-input' type="checkbox" name="hasArxiv" id='hasArxiv'>
+            </div>
+        </div>
+
+        <div id="inspireRecords" class="table-responsive"></div>
+
+    <h4>Other Records</h4>
+
+        <div class="input-group">
+            <span class="input-group-text bg-light">Search</span>
+            <input class='form-control' type="text" name="miscSearch" id='miscSearch'>
+            <small class="w-100 text-muted">Note. Only displayed authors are searched currently.</small>
+        </div>
+
+        <div id="miscRecords" class="table-responsive"></div>
+</div>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block body %}
+{% load static %}
+{% load add_class %}
+{% if form.errors %}
+    <ul>
+        <li>Please enter a correct username and password. Note that both fields may be case-sensitive.</li>
+    </ul>
+{% endif %}
+
+
+<div class="container-sm">
+    <h1>Login</h1>
+    <form method="post">
+      {% csrf_token %}
+      <div class='input-group'>
+          <span class="input-group-text bg-light">Username</span>
+          {{ form.username|add_class:"form-control"}}
+      </div>
+      <div class='input-group'>
+          <span class="input-group-text bg-light">Password</span>
+          {{ form.password|add_class:"form-control"}}
+      </div>
+      <input type="submit" value="Login" class="btn btn-primary" />
+      <input type="hidden" name="next" value="{{ next }}" />
+    </form>
+</div>
+
+
+
+
+<!-- <form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input type="submit" value="Login" />
+  <input type="hidden" name="next" value="{{ next }}" />
+</form> -->
+
+{% endblock %}
