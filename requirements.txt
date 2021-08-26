@@ -1,7 +1,11 @@
 asgiref==3.4.0
 chromedriver-py==92.0.4515.43
+dj-database-url==0.5.0
 Django==3.2.4
+gunicorn==20.1.0
+psycopg2-binary==2.9.1
 pytz==2021.1
 selenium==3.141.0
 sqlparse==0.4.1
 urllib3==1.26.6
+whitenoise==5.3.0
