@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <select class="form-select projectSelect">
                               ${document.querySelector('#projectSelect').innerHTML}
                             </select>
-                            <button class="btn btn-primary projectSelectBtn" type="button">Add</button>
+                            <button class="btn btn-primary projectSelectBtn" type="button" disabled>Select</button>
                         </div>
                     </td>`
                 }
@@ -100,7 +100,12 @@ document.addEventListener('DOMContentLoaded', function() {
                         let btn = row.querySelector('.projectSelectBtn')
                         let currentUrl = api_to_url(refUrl)
                         if (projectId != '0') {
+                            btn.disabled = false
                             selectFunction(projectId,btn,currentUrl)
+                        }
+                        else {
+                            btn.innerHTML = 'Select'
+                            btn.disabled = true
                         }
                     }
                     row.querySelector('.projectSelectBtn').onclick = function () {

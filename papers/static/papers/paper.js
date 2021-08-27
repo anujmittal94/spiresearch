@@ -194,7 +194,7 @@ let url = url_to_api(document.querySelector('#paperUrl').innerHTML)
                                 <select class="form-select projectSelect">
                                   ${document.querySelector('#projectSelect').innerHTML}
                                 </select>
-                                <button class="btn btn-primary projectSelectBtn" type="button">Add</button>
+                                <button class="btn btn-primary projectSelectBtn" type="button" disabled>Select</button>
                             </div>
                         </td>`
                     }
@@ -243,7 +243,12 @@ let url = url_to_api(document.querySelector('#paperUrl').innerHTML)
                             let btn = row.querySelector('.projectSelectBtn')
                             let currentUrl = api_to_url(refUrl)
                             if (projectId != '0') {
+                                btn.disabled = false
                                 selectFunction(projectId,btn,currentUrl)
+                            }
+                            else {
+                                btn.innerHTML = 'Select'
+                                btn.disabled = true
                             }
                         }
                         row.querySelector('.projectSelectBtn').onclick = function () {
@@ -319,7 +324,12 @@ let url = url_to_api(document.querySelector('#paperUrl').innerHTML)
             let btn = document.querySelector('#projectSelectBtn')
             let currentUrl = api_to_url(url)
             if (projectId != '0') {
+                btn.disabled = false
                 selectFunction(projectId,btn,currentUrl)
+            }
+            else {
+                btn.innerHTML = 'Select'
+                btn.disabled = true
             }
 
         }
